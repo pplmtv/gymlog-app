@@ -1,2 +1,2 @@
-# gymlog_frontend
-gymlog_frontend
+# gymlog-app
+gymlog-app
