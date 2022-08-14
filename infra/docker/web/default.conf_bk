@@ -1,0 +1,61 @@
+#devlopment
+upstream webserver {
+	ip_hash;
+	server backend:8000;
+}
+
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	'' close;
+}
+
+server {
+	listen 80;
+	server_name 127.0.0.1;
+
+	client_header_buffer_size 1k;
+	large_client_header_buffers 8 32k;
+
+	add_header Strict-Transport-Security 'max-age=31536000';
+	add_header X-Frame-Options DENY;
+	add_header X-XSS-Protection "1; mode=block";
+
+	error_page 500 502 503 504 /50x.html;
+
+	# フロントエンド
+	location / {
+		root /var/www/drf-vue2-sample/frontend;
+		try_files $uri $uri/ /index.html;
+	}
+
+	# バックエンド
+		alias /var/www/drf-vue2-sample/static;
+	}
+
+	# バックエンドサーバー
+	location /back/ {
+		inculude /ect/nginx/uwsgi_params;
+		uwsgi_pass webserver;
+		proxy_redirect off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Fowarded-For $proxy_add_x_forwarded_for;
+		proxy_read_timeout 86400s;
+		proxy_send_timeout 86400s;
+	}
+
+	# バックエンド adminサーバー
+	location /admin/ {
+		inculude /etc/nginx/uwsgi_params;
+		uwsgi_pass webserver;
+		proxy_redirect off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Host $server_name;
+	}
+
+	locaiton = /50x.html {
+		root /usr/share/nginx/html;
+	}
+}
