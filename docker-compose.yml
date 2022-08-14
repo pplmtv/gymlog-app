@@ -1,0 +1,77 @@
+version: '3'
+services:
+  app:
+    build: ./infra/docker/app
+    image: gymlog-app-image
+    container_name: gymlog-app
+    command: 'sh /var/www/drf-vue2-sample/app/start.sh'
+    ports:
+      - '8000:8000'
+    # volumes:
+    #    - ./backend/:/var/www/drf-vue2-sample/backend/
+    tty: true
+    environment:
+       - DB_CONNECTION=mysql
+       - DB_HOST=db
+       - DB_PORT=3306
+       - DB_DATABASE=mysql
+       - DB_USERNAME=root
+       - DB_PASSWORD=root
+
+  web:
+    build: ./infra/docker/web
+    image: gymlog-web-image
+    container_name: gymlog-web
+    environment:
+      TZ: 'Asia/Tokyo'
+    # 公開用のポート。ホスト側：コンテナ側を指定
+    ports:
+      - '80:80'
+    # volumes:
+    #    - ./web:/usr/share/nginx/html
+    depends_on:
+      - app
+    tty: true
+    # volumes:
+    #   - type: volume
+    #     source: php-fpm-socket
+    #     target: /var/run/php-fpm
+    #     volume:
+    #       nocopy: true
+    #   - type: bind
+    #     source: ./backend
+    #     target: /work/backend
+    # environment:
+    #   - VPC_CIDR=${VPC_CIDR:-172.41.0.0/16}
+
+  db:
+    build: ./infra/docker/db
+    image: gymlog-db-image
+    container_name: gymlog-db
+
+    # ports:
+    #   - target: 3306
+    #     published: ${DB_PORT:-3306}
+    #     protocol: tcp
+    #     mode: host
+    # volumes:
+    #   - type: volume
+    #     source: db-store
+    #     target: /var/lib/mysql
+    #     volume:
+    #       nocopy: true
+    environment:
+    #   - MYSQL_DATABASE=${DB_NAME:-laravel_local}
+    #   - MYSQL_USER=${DB_USER:-phper}
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+
+
+  # cache:
+  #   image: redis:6.2.4-alpine
+
+# networks:
+#   default:
+#     ipam:
+#       config:
+#         - subnet: ${VPC_CIDR:-172.41.0.0/16}
