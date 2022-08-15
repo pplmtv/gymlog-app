@@ -1,34 +1,34 @@
 version: '3'
 services:
   app:
-    build: ./infra/docker/app
+    build:
+      context: .
+      dockerfile: ./infra/docker/app/Dockerfile
     image: gymlog-app-image
     container_name: gymlog-app
-    command: 'sh /var/www/drf-vue2-sample/app/start.sh'
+    command: 'sh /var/www/gymlog-app/start.sh'
     ports:
       - '8000:8000'
-    # volumes:
-    #    - ./backend/:/var/www/drf-vue2-sample/backend/
     tty: true
-    environment:
-       - DB_CONNECTION=mysql
-       - DB_HOST=db
-       - DB_PORT=3306
-       - DB_DATABASE=mysql
-       - DB_USERNAME=root
-       - DB_PASSWORD=root
+    # environment:
+    #    - DB_CONNECTION=mysql
+    #    - DB_HOST=db
+    #    - DB_PORT=3306
+    #    - DB_DATABASE=mysql
+    #    - DB_USERNAME=root
+    #    - DB_PASSWORD=root
 
   web:
-    build: ./infra/docker/web
+    build:
+      context: .
+      dockerfile: ./infra/docker/web/Dockerfile
     image: gymlog-web-image
     container_name: gymlog-web
-    environment:
-      TZ: 'Asia/Tokyo'
+    # environment:
+    #   TZ: 'Asia/Tokyo'
     # 公開用のポート。ホスト側：コンテナ側を指定
     ports:
       - '80:80'
-    # volumes:
-    #    - ./web:/usr/share/nginx/html
     depends_on:
       - app
     tty: true
