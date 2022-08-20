@@ -1,6 +1,5 @@
 # イメージを選択
 FROM python:3.9
-#FROM ubuntu:20.04
 
 # バイナリレイヤ下での標準出力とエラー出力を抑制
 ENV PTHONNUNBUFFERED 1
