@@ -1,6 +1,5 @@
 name: deploy
 
-
 on:
   push:
     branches:
@@ -37,28 +36,38 @@ jobs:
         #   echo "ENV_NAME=prod" >> $GITHUB_ENV
         #   echo "VPC_CIDR=172.41.0.0/16" >> $GITHUB_ENV
 
-
       - uses: actions/checkout@v2
        
       - run: docker-compose up -d --build app web
 
-      # - name: Cache composer
-      #   id: cache-composer
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: backend/vendor
-      #     key: composer-v1-${{ hashFiles('backend/composer.lock') }}
+      - uses: aws-actions/amazon-ecr-login@v1
+        id: amazon-ecr-login
 
+      # - name: Push app image to ecr
+      #   env:
+      #     DOCKER_BUILDKIT: 1
+      #     ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
+      #     ECR_REPOSITRY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-app
+      #   run: |
+      #     docker build \
+      #       --cache-from=$ECR_REGISTRY/$ECR_REPOSITRY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
+      #       -f infra/docker/app/Dockerfile \
+      #       -t $ECR_REGISTRY/$ECR_REPOSITRY:latest \
+      #       -t $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITRY:latest
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
 
-      # - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
-      #   if: ${{ !steps.cache-composer.outputs.cache-hit }}
+      # - name: Push web image to ecr
+      #   env:
+      #     DOCKER_BUILDKIT: 1
+      #     ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
+      #     ECR_REPOSITORY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-web
+      #   run: |
+      #     docker build \
+      #       --cache-from=$ECR_REGISTRY/$ECR_REPOSITORY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
+      #       -f infra/docker/web/Dockerfile \
+      #       -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
+      #       -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-
-      # - name: Cache npm
-      #   id: cache-npm-ci
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: backend/node_modules
-      #     key: npm-v1-${{ hashFiles('backend/package-lock.json') }}
-
-      # - run: docker-compose exec -T web npm ci
