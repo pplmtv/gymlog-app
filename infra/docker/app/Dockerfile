@@ -1,28 +1,30 @@
-# イメージを選択
+# build & deploy stage
 FROM python:3.9
 
-# バイナリレイヤ下での標準出力とエラー出力を抑制
+# output control
 ENV PTHONNUNBUFFERED 1
 
+# work directory
 WORKDIR /var/www/gymlog-app
 
-# ディレクトリ配下をコピー
+# copy under directory
 COPY ./apiv1 /var/www/gymlog-app/apiv1
 COPY ./config /var/www/gymlog-app/config
 COPY ./shop /var/www/gymlog-app/shop
 
-# ファイルをコピー
+# copy file
 COPY ./.env.gymlog-sys /var/www/gymlog-app/.env.gymlog-sys
 COPY ./requirements.txt /var/www/gymlog-app/requirements.txt
 COPY ./manage.py /var/www/gymlog-app/manage.py
 COPY ./db.sqlite3 /var/www/gymlog-app/db.sqlite3
 
+# install
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY ./infra/docker/app/start.sh /var/www/gymlog-app/start.sh
-RUN chmod 744 /var/www/gymlog-app/start.sh
+# DB migration
+RUN python3 manage.py makemigrations
+RUN python3 manage.py migrate
 
-expose "8000"
-
-CMD ["bash", "/var/www/gymlog-app/start.sh"]
+# start-up
+CMD python3 manage.py runserver 0.0.0.0:8000

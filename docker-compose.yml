@@ -6,7 +6,7 @@ services:
       dockerfile: ./infra/docker/app/Dockerfile
     image: gymlog-app-image
     container_name: gymlog-app
-    command: 'sh /var/www/gymlog-app/start.sh'
+    # command: 'sh /var/www/gymlog-app/start.sh'
     ports:
       - '8000:8000'
     tty: true
