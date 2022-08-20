@@ -43,31 +43,30 @@ jobs:
       - uses: aws-actions/amazon-ecr-login@v1
         id: amazon-ecr-login
 
-      # - name: Push app image to ecr
-      #   env:
-      #     DOCKER_BUILDKIT: 1
-      #     ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
-      #     ECR_REPOSITRY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-app
-      #   run: |
-      #     docker build \
-      #       --cache-from=$ECR_REGISTRY/$ECR_REPOSITRY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
-      #       -f infra/docker/app/Dockerfile \
-      #       -t $ECR_REGISTRY/$ECR_REPOSITRY:latest \
-      #       -t $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITRY:latest
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
+      - name: Push app image to ecr
+        env:
+          DOCKER_BUILDKIT: 1
+          ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
+          ECR_REPOSITRY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-app
+        run: |
+          docker build \
+            --cache-from=$ECR_REGISTRY/$ECR_REPOSITRY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
+            -f infra/docker/app/Dockerfile \
+            -t $ECR_REGISTRY/$ECR_REPOSITRY:latest \
+            -t $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITRY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
 
-      # - name: Push web image to ecr
-      #   env:
-      #     DOCKER_BUILDKIT: 1
-      #     ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
-      #     ECR_REPOSITORY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-web
-      #   run: |
-      #     docker build \
-      #       --cache-from=$ECR_REGISTRY/$ECR_REPOSITORY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
-      #       -f infra/docker/web/Dockerfile \
-      #       -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
-      #       -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
+      - name: Push web image to ecr
+        env:
+          DOCKER_BUILDKIT: 1
+          ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-web
+        run: |
+          docker build \
+            --cache-from=$ECR_REGISTRY/$ECR_REPOSITORY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
+            -f infra/docker/web/Dockerfile \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
