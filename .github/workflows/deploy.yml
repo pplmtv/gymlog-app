@@ -38,34 +38,34 @@ jobs:
 
       - uses: actions/checkout@v2
        
-      - run: docker-compose up -d --build app web
+      - run: docker-compose up -d --build backend frontend
 
       - uses: aws-actions/amazon-ecr-login@v1
         id: amazon-ecr-login
 
-      - name: Push app image to ecr
+      - name: Push backend image to ecr
         env:
           DOCKER_BUILDKIT: 1
           ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
-          ECR_REPOSITRY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-app
+          ECR_REPOSITRY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-backend
         run: |
           docker build \
             --cache-from=$ECR_REGISTRY/$ECR_REPOSITRY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
-            -f infra/docker/app/Dockerfile \
+            -f infra/docker/backend/Dockerfile \
             -t $ECR_REGISTRY/$ECR_REPOSITRY:latest \
             -t $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITRY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITRY:$IMAGE_TAG
 
-      - name: Push web image to ecr
+      - name: Push frontend image to ecr
         env:
           DOCKER_BUILDKIT: 1
           ECR_REGISTRY: ${{ steps.amazon-ecr-login.outputs.registry }}
-          ECR_REPOSITORY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-web
+          ECR_REPOSITORY: ${{ env.SYSTEM_NAME }}-${{ env.ENV_NAME }}-${{ env.SERVICE_NAME }}-frontend
         run: |
           docker build \
             --cache-from=$ECR_REGISTRY/$ECR_REPOSITORY:latest --build-arg BUILDKIT_INLINE_CACHE=1 . \
-            -f infra/docker/web/Dockerfile \
+            -f infra/docker/frontend/Dockerfile \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
