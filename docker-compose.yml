@@ -1,12 +1,11 @@
 version: '3'
 services:
-  app:
+  backend:
     build:
       context: .
-      dockerfile: ./infra/docker/app/Dockerfile
-    image: gymlog-app-image
-    container_name: gymlog-app
-    # command: 'sh /var/www/gymlog-app/start.sh'
+      dockerfile: ./infra/docker/backend/Dockerfile
+    image: gymlog-backend-image
+    container_name: gymlog-backend
     ports:
       - '8000:8000'
     tty: true
@@ -21,16 +20,16 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./infra/docker/web/Dockerfile
-    image: gymlog-web-image
-    container_name: gymlog-web
+      dockerfile: ./infra/docker/frontend/Dockerfile
+    image: gymlog-frontend-image
+    container_name: gymlog-frontend
     # environment:
     #   TZ: 'Asia/Tokyo'
     # 公開用のポート。ホスト側：コンテナ側を指定
     ports:
       - '80:80'
     depends_on:
-      - app
+      - backend
     tty: true
     # volumes:
     #   - type: volume
