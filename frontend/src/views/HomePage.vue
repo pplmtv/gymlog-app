@@ -36,12 +36,6 @@
         </div>
       </b-form>
     </main>
-
-    <!-- デバッグ -->
-    <div class="m-5">
-      <pre>form: {{ form }}</pre>
-      <pre>state: {{ this.$store.state }}</pre>
-    </div>
   </div>
 </template>
 
