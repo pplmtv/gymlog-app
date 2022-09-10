@@ -1,0 +1,105 @@
+{
+  "containerDefinitions": [
+    {
+      "cpu": 0,
+      "dependsOn": [
+        {
+          "condition": "START",
+          "containerName": "backend"
+        }
+      ],
+      "environment": [
+        {
+          "name": "VPC_CIDR",
+          "value": "{{ must_env `VPC_CIDR` }}"
+        }
+      ],
+      "essential": true,
+      "image": "{{ tfstate `data.aws_ecr_repository.frontend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "{{ tfstate `data.aws_cloudwatch_log_group.frontend.name` }}",
+          "awslogs-region": "{{ must_env `AWS_REGION` }}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "mountPoints": [],
+      "name": "frontend",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [],
+      "volumesFrom": []
+    },
+    {
+      "cpu": 0,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "type": "s3",
+          "value": "{{ tfstate `data.aws_s3_bucket.env_file.arn` }}/{{ must_env `IMAGE_TAG` }}/.env"
+        }
+      ],
+      "essential": true,
+      "image": "{{ tfstate `data.aws_ecr_repository.backend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "{{ tfstate `data.aws_cloudwatch_log_group.backend.name` }}",
+          "awslogs-region": "{{ must_env `AWS_REGION` }}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "mountPoints": [],
+      "name": "backend",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "APP_KEY",
+          "valueFrom": "/{{ must_env `SYSTEM_NAME` }}/{{ must_env `ENV_NAME` }}/{{ must_env `SERVICE_NAME` }}/APP_KEY"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "/{{ must_env `SYSTEM_NAME` }}/{{ must_env `ENV_NAME` }}/{{ must_env `SERVICE_NAME` }}/DB_PASSWORD"
+        }
+      ],
+      "volumesFrom": []
+    }
+  ],
+  "cpu": "256",
+  "executionRoleArn": "{{ tfstate `data.aws_iam_role.ecs_task_execution.arn` }}",
+  "family": "{{ must_env `SYSTEM_NAME` }}-{{ must_env `ENV_NAME` }}-{{ must_env `SERVICE_NAME` }}",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "tags": [
+    {
+      "key": "Env",
+      "value": "{{ must_env `ENV_NAME` }}"
+    },
+    {
+      "key": "System",
+      "value": "{{ must_env `SYSTEM_NAME` }}"
+    },
+    {
+      "key": "Name",
+      "value": "{{ must_env `SYSTEM_NAME` }}-{{ must_env `ENV_NAME` }}-{{ must_env `SERVICE_NAME` }}"
+    }
+  ],
+  "taskRoleArn": "{{ tfstate `data.aws_iam_role.ecs_task.arn` }}",
+  "volumes": []
+}

@@ -1,0 +1,6 @@
+region: ap-northeast-1
+cluster: gymlog-sys-prod-gymlog-app
+service: gymlog-sys-prod-gymlog-app
+service_definition: ecs-service-def.json
+task_definition: ecs-task-def.json
+timeout: 10m0s
