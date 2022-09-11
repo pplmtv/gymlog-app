@@ -2,7 +2,7 @@
   <!-- ヘッダーナビゲーション -->
   <div id="header">
     <b-navbar type="dark" variant="dark">
-      <a class="navbar-brand" href="/">gymlog+</a>
+      <a class="navbar-brand" href="/">gymlog++</a>
       <b-navbar-nav class="ml-auto" v-if="$route.meta.requiresAuth">
         <b-nav-item-dropdown right v-if="isLoggedIn">
           <template v-slot:button-content>{{ username }}</template>
