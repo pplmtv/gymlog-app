@@ -8,12 +8,7 @@
           "containerName": "backend"
         }
       ],
-      "environment": [
-        {
-          "name": "VPC_CIDR",
-          "value": "{{ must_env `VPC_CIDR` }}"
-        }
-      ],
+      "environment": [],
       "essential": true,
       "image": "{{ tfstate `data.aws_ecr_repository.frontend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
       "logConfiguration": {
@@ -39,12 +34,7 @@
     {
       "cpu": 0,
       "environment": [],
-      "environmentFiles": [
-        {
-          "type": "s3",
-          "value": "{{ tfstate `data.aws_s3_bucket.env_file.arn` }}/{{ must_env `IMAGE_TAG` }}/.env"
-        }
-      ],
+      "environmentFiles": [],
       "essential": true,
       "image": "{{ tfstate `data.aws_ecr_repository.backend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
       "logConfiguration": {
@@ -64,16 +54,7 @@
           "protocol": "tcp"
         }
       ],
-      "secrets": [
-        {
-          "name": "APP_KEY",
-          "valueFrom": "/{{ must_env `SYSTEM_NAME` }}/{{ must_env `ENV_NAME` }}/{{ must_env `SERVICE_NAME` }}/APP_KEY"
-        },
-        {
-          "name": "DB_PASSWORD",
-          "valueFrom": "/{{ must_env `SYSTEM_NAME` }}/{{ must_env `ENV_NAME` }}/{{ must_env `SERVICE_NAME` }}/DB_PASSWORD"
-        }
-      ],
+      "secrets": [],
       "volumesFrom": []
     }
   ],

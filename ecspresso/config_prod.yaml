@@ -3,7 +3,7 @@ cluster: gymlog-sys-prod-gymlog-app
 service: gymlog-sys-prod-gymlog-app
 service_definition: ecs-service-def.json
 task_definition: ecs-task-def.json
-timeout: 20m0s
+timeout: 10m0s
 plugins:
   - name: tfstate
     config:
