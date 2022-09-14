@@ -10,12 +10,12 @@
       ],
       "environment": [],
       "essential": true,
-      "image": "{{ tfstate `data.aws_ecr_repository.frontend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
+      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-frontend:c2741000273c395357f1b1d49bf4326a62de5ebd",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "{{ tfstate `data.aws_cloudwatch_log_group.frontend.name` }}",
-          "awslogs-region": "{{ must_env `AWS_REGION` }}",
+          "awslogs-group": "/ecs/gymlog-sys-prod-gymlog-app/frontend",
+          "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
         }
       },
@@ -36,12 +36,12 @@
       "environment": [],
       "environmentFiles": [],
       "essential": true,
-      "image": "{{ tfstate `data.aws_ecr_repository.backend.repository_url` }}:{{ must_env `IMAGE_TAG` }}",
+      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-backend:c2741000273c395357f1b1d49bf4326a62de5ebd",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "{{ tfstate `data.aws_cloudwatch_log_group.backend.name` }}",
-          "awslogs-region": "{{ must_env `AWS_REGION` }}",
+          "awslogs-group": "/ecs/gymlog-sys-prod-gymlog-app/backend",
+          "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
         }
       },
@@ -59,8 +59,8 @@
     }
   ],
   "cpu": "256",
-  "executionRoleArn": "{{ tfstate `data.aws_iam_role.ecs_task_execution.arn` }}",
-  "family": "{{ must_env `SYSTEM_NAME` }}-{{ must_env `ENV_NAME` }}-{{ must_env `SERVICE_NAME` }}",
+  "executionRoleArn": "arn:aws:iam::704327970435:role/gymlog-sys-prod-gymlog-app-ecs-task-execution",
+  "family": "gymlog-sys-prod-gymlog-app",
   "memory": "512",
   "networkMode": "awsvpc",
   "placementConstraints": [],
@@ -70,17 +70,17 @@
   "tags": [
     {
       "key": "Env",
-      "value": "{{ must_env `ENV_NAME` }}"
+      "value": "prod"
     },
     {
       "key": "System",
-      "value": "{{ must_env `SYSTEM_NAME` }}"
+      "value": "gymlog-sys"
     },
     {
       "key": "Name",
-      "value": "{{ must_env `SYSTEM_NAME` }}-{{ must_env `ENV_NAME` }}-{{ must_env `SERVICE_NAME` }}"
+      "value": "gymlog-sys-prod-gymlog-app"
     }
   ],
-  "taskRoleArn": "{{ tfstate `data.aws_iam_role.ecs_task.arn` }}",
+  "taskRoleArn": "arn:aws:iam::704327970435:role/gymlog-sys-prod-gymlog-app-ecs-task",
   "volumes": []
 }
