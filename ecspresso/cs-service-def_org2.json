@@ -22,18 +22,18 @@
     {
       "containerName": "frontend",
       "containerPort": 80,
-      "targetGroupArn": "{{ tfstate `data.aws_lb_target_group.this.arn` }}"
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-northeast-1:704327970435:targetgroup/gymlog-sys-prod-gymlog-app/8a47bd45293505f5"
     }
   ],
   "networkConfiguration": {
     "awsvpcConfiguration": {
       "assignPublicIp": "DISABLED",
       "securityGroups": [
-        "{{ tfstate `data.aws_security_group.vpc.id` }}"
+        "sg-01502b147276554d0"
       ],
       "subnets": [
-        "{{ tfstate `data.aws_subnet.private['a'].id` }}",
-        "{{ tfstate `data.aws_subnet.private['c'].id` }}"
+        "subnet-01f3bb8bae0ecbbf1",
+        "subnet-0c90ba4ccef8a7c37"
       ]
     }
   },
@@ -50,15 +50,15 @@
   "tags": [
     {
       "key": "Env",
-      "value": "{{ must_env `ENV_NAME` }}"
+      "value": "prod"
     },
     {
       "key": "System",
-      "value": "{{ must_env `SYSTEM_NAME` }}"
+      "value": "gymlog-sys"
     },
     {
       "key": "Name",
-      "value": "{{ must_env `SYSTEM_NAME` }}-{{ must_env `ENV_NAME` }}-{{ must_env `SERVICE_NAME` }}"
+      "value": "gymlog-sys-prod-gymlog-app"
     }
   ]
 }

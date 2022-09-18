@@ -3,7 +3,6 @@ import store from "@/store";
 
 const api = axios.create({
   baseURL: process.env.VUE_APP_ROOT_API,
-  // baseURL: "http://127.0.0.1:8000/api/v1/",
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",
