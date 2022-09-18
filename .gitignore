@@ -132,3 +132,9 @@ dmypy.json
 # macOS + PyCharm
 .DS_Store
 .idea/
+
+# npm run build
+static/js/chunk-vendors.*.js
+static/js/chunk-vendors.*.js.map
+static/js/index.*.js
+static/js/index.*.js.map
