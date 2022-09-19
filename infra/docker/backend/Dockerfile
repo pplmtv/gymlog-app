@@ -1,5 +1,15 @@
 # build & deploy stage
 FROM python:3.9
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    net-tools \
+    sudo \
+    bzip2 \
+    curl \
+    gcc \
+    git \
+    vim
+RUN apt-get clean
 
 # output control
 ENV PTHONNUNBUFFERED 1
