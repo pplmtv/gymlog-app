@@ -1,17 +1,7 @@
 # build stage
 # base image
 FROM node:14.17.6 AS builder
-
-# install
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
-    net-tools \
-    sudo \
-    bzip2 \
-    curl \
-    gcc \
-    git \
-    vim
 RUN apt-get clean
 
 # work directory
@@ -36,9 +26,10 @@ RUN npm run build
 # deploy stage
 # base image
 FROM nginx:1.11.7
+RUN apt-get update
+RUN apt-get clean
 
 # install
-RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     net-tools \
     sudo \
@@ -47,11 +38,10 @@ RUN apt-get install -y --no-install-recommends \
     gcc \
     git \
     vim
-RUN apt-get clean
 
 # nginx config file will be output to /etc/nginx/conf.d/ by envsubst
-COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./infra/docker/frontend/default.conf /etc/nginx/conf.d/default.conf
+COPY ./infra/docker/frontend/nginx.conf /etc/nginx/nginx.conf
 
 # copy index.html
 COPY --from=builder  /var/www/gymlog-app/templates/index.html /usr/share/nginx/html/index.html
