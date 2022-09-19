@@ -1,6 +1,9 @@
 # build & deploy stage
 FROM python:3.9
 RUN apt-get update
+RUN apt-get clean
+
+# install
 RUN apt-get install -y --no-install-recommends \
     net-tools \
     sudo \
@@ -9,7 +12,6 @@ RUN apt-get install -y --no-install-recommends \
     gcc \
     git \
     vim
-RUN apt-get clean
 
 # output control
 ENV PTHONNUNBUFFERED 1
