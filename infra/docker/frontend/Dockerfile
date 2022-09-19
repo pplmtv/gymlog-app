@@ -4,6 +4,10 @@ FROM node:14.17.6 AS builder
 
 # install
 RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    sudo \
+    bzip2 \
+    gcc
 RUN apt-get clean
 RUN npm install -g @vue/cli
 RUN npm update
