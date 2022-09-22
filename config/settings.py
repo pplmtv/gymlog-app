@@ -28,8 +28,8 @@ env.read_env(os.path.join(BASE_DIR, '.env.gymlog-sys'))
 SECRET_KEY = env.get_value('SECRET_KEY', str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 # ALLOWED_HOSTS = ['pplmtv-gymlog.link']
 ALLOWED_HOSTS = ['*']
@@ -54,11 +54,11 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
 
     # debug
-    'debug_toolbar',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
