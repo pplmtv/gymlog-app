@@ -54,16 +54,16 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
 
     # debug
-    # 'debug_toolbar',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -150,13 +150,13 @@ SIMPLE_JWT = {
 
 # CORS
 # CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_ALL_ORIGINS = False
-# CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
 
-CORS_ORIGIN_WHITELIST = (
-    'https://pplmtv-gymlog.link',
-    'http://localhost'
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'https://pplmtv-gymlog.link',
+#     'http://localhost'
+# )
 
 CORS_ALLOW_HEADERS = (
     'accept',
