@@ -19,7 +19,7 @@ api.interceptors.request.use(
     store.dispatch("message/clearMessages");
     // 認証用トークンがあればリクエストヘッダに加える
     const token = localStorage.getItem("access");
-    // console.log("token",localStorage.getItem("access"));
+    console.log("token", localStorage.getItem("access"));
     if (token) {
       config.headers.Authorization = "JWT " + token;
       return config;
@@ -36,7 +36,7 @@ api.interceptors.response.use(
   (response) => {
     console.log("DEBUG api.interceptors.response.use");
     console.log("status:", response.status);
-    // console.log("data:",response.data);
+    console.log("data:", response.data);
     return response;
   },
   (error) => {
