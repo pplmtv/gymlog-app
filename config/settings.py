@@ -149,14 +149,14 @@ SIMPLE_JWT = {
 }
 
 # CORS
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOW_ALL_ORIGINS = False
 # CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
 
-# CORS_ORIGIN_WHITELIST = (
-#     'https://pplmtv-gymlog.link',
-#     'http://localhost'
-# )
+CORS_ORIGIN_WHITELIST = (
+    'https://pplmtv-gymlog.link',
+    'http://localhost'
+)
 
 CORS_ALLOW_HEADERS = (
     'accept',
