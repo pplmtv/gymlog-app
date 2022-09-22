@@ -32,8 +32,7 @@ SECRET_KEY = env.get_value('SECRET_KEY', str)
 DEBUG = False
 
 # ALLOWED_HOSTS = ['pplmtv-gymlog.link']
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
