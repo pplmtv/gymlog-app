@@ -28,9 +28,10 @@ env.read_env(os.path.join(BASE_DIR, '.env.gymlog-sys'))
 SECRET_KEY = env.get_value('SECRET_KEY', str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pplmtv-gymlog.link']
 
 
 # Application definition
