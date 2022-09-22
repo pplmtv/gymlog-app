@@ -43,7 +43,7 @@
 import api from "@/services/api";
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   components: {
