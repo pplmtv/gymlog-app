@@ -28,9 +28,10 @@ env.read_env(os.path.join(BASE_DIR, '.env.gymlog-sys'))
 SECRET_KEY = env.get_value('SECRET_KEY', str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pplmtv-gymlog.link']
 
 
 # Application definition
@@ -149,8 +150,26 @@ SIMPLE_JWT = {
 
 # CORS
 # CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+# CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+
+CORS_ORIGIN_WHITELIST = (
+    'https://pplmtv-gymlog.link',
+    'http://localhost'
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'access-control-allow-origin',
+)
 
 # debug_toolbar
 INTERNAL_IPS = env.list('INTERNAL_IPS')
