@@ -40,8 +40,8 @@ services:
     #   - type: bind
     #     source: ./backend
     #     target: /work/backend
-    # environment:
-    #   - VPC_CIDR=${VPC_CIDR:-172.41.0.0/16}
+    environment:
+      - VPC_CIDR=${VPC_CIDR:-172.41.0.0/16}
 
   db:
     build: ./infra/docker/db
@@ -69,8 +69,8 @@ services:
   # cache:
   #   image: redis:6.2.4-alpine
 
-# networks:
-#   default:
-#     ipam:
-#       config:
-#         - subnet: ${VPC_CIDR:-172.41.0.0/16}
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: ${VPC_CIDR:-172.41.0.0/16}

@@ -31,7 +31,7 @@ SECRET_KEY = env.get_value('SECRET_KEY', str)
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'pplmtv-gymlog.link']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pplmtv-gymlog.link']
 # ALLOWED_HOSTS = ['*']
 
 # Application definition
