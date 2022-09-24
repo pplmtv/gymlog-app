@@ -26,20 +26,17 @@ const authModule = {
      *  ログイン
      */
     login(context, payload) {
-      return (
-        api
-          // .post("/api/v1/auth/jwt/create/", {
-          .post("/auth/jwt/create/", {
-            username: payload.username,
-            password: payload.password,
-          })
-          .then((response) => {
-            // 認証用トークンをlocalStorageに保存
-            localStorage.setItem("access", response.data.access);
-            // ユーザー情報を取得してstoreのユーザー情報を更新
-            return context.dispatch("renew");
-          })
-      );
+      return api
+        .post("/auth/jwt/create/", {
+          username: payload.username,
+          password: payload.password,
+        })
+        .then((response) => {
+          // 認証用トークンをlocalStorageに保存
+          localStorage.setItem("access", response.data.access);
+          // ユーザー情報を取得してstoreのユーザー情報を更新
+          return context.dispatch("renew");
+        });
     },
     /**
      *  ログアウト
@@ -54,7 +51,6 @@ const authModule = {
      *  ユーザー情報更新
      */
     renew(context) {
-      // return api.get("/api/v1/auth/users/me/").then(response => {
       return api.get("/auth/users/me/").then((response) => {
         const user = response.data;
         // storeのユーザー情報を更新
