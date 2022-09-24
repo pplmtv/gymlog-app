@@ -40,8 +40,8 @@ RUN apt-get install -y --no-install-recommends \
     vim
 
 # nginx config file will be output to /etc/nginx/conf.d/ by envsubst
-#COPY ./infra/docker/frontend/default.conf /etc/nginx/conf.d/default.conf
-#COPY ./infra/docker/frontend/nginx.conf /etc/nginx/nginx.conf
+COPY ./infra/docker/frontend/default.conf /etc/nginx/conf.d/default.conf
+COPY ./infra/docker/frontend/nginx.conf /etc/nginx/nginx.conf
 
 # copy index.html
 COPY --from=builder  /var/www/gymlog-app/templates/index.html /usr/share/nginx/html/index.html

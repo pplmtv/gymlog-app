@@ -28,5 +28,6 @@ axios.defaults.headers.common["Accept"] = "application/json";
 axios.defaults.headers.common["Content-Type"] =
   "application/json;charset=utf-8";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] =
-  "https://pplmtv-gymlog.link";
+  // "https://pplmtv-gymlog.link";
+  "http://localhost:80";
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

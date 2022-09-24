@@ -43,7 +43,7 @@
 import api from "@/services/api";
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalMessage from "@/components/GlobalMessage.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   components: {
@@ -73,35 +73,35 @@ export default {
       console.log("create or update.");
       // console.log("token",localStorage.getItem("access"));
       ////////// DEBUG START //////////
-      console.log("DEBUG START.");
-      axios
-        .get("http://127.0.0.1:8000/api/v1/books/")
-        .then((response) => {
-          console.log("DEBUG axios get success.");
-          console.log("status:", response.status);
-          // console.log("data:",response.data)
-        })
-        .catch((err) => {
-          console.log("axiosGetErr", err);
-        });
-
-      axios
-        .post("http://127.0.0.1:8000/api/v1/books/", {
-          title: "urasima tarou",
-          price: 2000,
-          created_at: "2021-12-07T06:41:56.325618+09:00",
-        })
-        .then((response) => {
-          console.log("DEBUG axios post success.");
-          console.log("status:", response.status);
-          // console.log("data:",response.data);
-        })
-        .catch((err) => {
-          console.log("axiosGetErr", err);
-        })
-        .finally(() => {
-          console.log("DEBUG END.");
-        });
+      // console.log("DEBUG START.");
+      // axios
+      //   .get("http://127.0.0.1:8000/api/v1/books/")
+      //   .then((response) => {
+      //     console.log("DEBUG axios get success.");
+      //     console.log("status:", response.status);
+      //     // console.log("data:",response.data)
+      //   })
+      //   .catch((err) => {
+      //     console.log("axiosGetErr", err);
+      //   });
+      //
+      // axios
+      //   .post("http://127.0.0.1:8000/api/v1/books/", {
+      //     title: "urasima tarou",
+      //     price: 2000,
+      //     created_at: "2021-12-07T06:41:56.325618+09:00",
+      //   })
+      //   .then((response) => {
+      //     console.log("DEBUG axios post success.");
+      //     console.log("status:", response.status);
+      //     // console.log("data:",response.data);
+      //   })
+      //   .catch((err) => {
+      //     console.log("axiosGetErr", err);
+      //   })
+      //   .finally(() => {
+      //     console.log("DEBUG END.");
+      //   });
       ////////// DEBUG END //////////
 
       api({

@@ -28,11 +28,11 @@ env.read_env(os.path.join(BASE_DIR, '.env.gymlog-sys'))
 SECRET_KEY = env.get_value('SECRET_KEY', str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = ['pplmtv-gymlog.link']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pplmtv-gymlog.link']
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -88,7 +88,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -115,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -128,7 +126,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -150,14 +147,8 @@ SIMPLE_JWT = {
 
 # CORS
 # CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_ALL_ORIGINS = False
-# CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
-
-CORS_ORIGIN_WHITELIST = (
-    'https://pplmtv-gymlog.link',
-    'http://localhost'
-)
-
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
 CORS_ALLOW_HEADERS = (
     'accept',
     'accept-encoding',
