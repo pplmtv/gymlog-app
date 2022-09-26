@@ -162,6 +162,9 @@ CORS_ALLOW_HEADERS = (
     'access-control-allow-origin',
 )
 
+# レスポンスを公開する
+CORS_ALLOW_CREDENTIALS = True
+
 # debug_toolbar
 INTERNAL_IPS = env.list('INTERNAL_IPS')
 
