@@ -35,7 +35,6 @@ RUN apt-get install --force-yes --no-install-recommends \
     sudo \
     bzip2 \
     curl \
-    gcc \
     git \
     vim
 
