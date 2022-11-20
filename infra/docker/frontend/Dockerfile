@@ -29,11 +29,7 @@ FROM nginx:1.11.7
 RUN apt-get update
 RUN apt-get clean
 
-# install
-RUN apt-get install --force-yes --no-install-recommends \
-    curl \
-    git \
-    vim
+# install nothing
 
 # nginx config file will be output to /etc/nginx/conf.d/ by envsubst
 COPY ./infra/docker/frontend/default.conf /etc/nginx/conf.d/default.conf
