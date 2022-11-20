@@ -30,14 +30,14 @@ RUN apt-get update
 RUN apt-get clean
 
 # install
-RUN apt-get install -y --no-install-recommends \
-    net-tools \
-    sudo \
-    bzip2 \
-    curl \
-    gcc \
-    git \
-    vim
+#RUN apt-get install -y --no-install-recommends \
+#    net-tools \
+#    sudo \
+#    bzip2 \
+#    curl \
+#    gcc \
+#    git \
+#    vim
 
 # nginx config file will be output to /etc/nginx/conf.d/ by envsubst
 COPY ./infra/docker/frontend/default.conf /etc/nginx/conf.d/default.conf
