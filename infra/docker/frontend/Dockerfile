@@ -30,7 +30,7 @@ RUN apt-get update
 RUN apt-get clean
 
 # install
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get install --force-yes --no-install-recommends \
     net-tools \
     sudo \
     bzip2 \
