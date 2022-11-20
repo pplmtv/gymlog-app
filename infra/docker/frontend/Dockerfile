@@ -31,9 +31,6 @@ RUN apt-get clean
 
 # install
 RUN apt-get install --force-yes --no-install-recommends \
-    net-tools \
-    sudo \
-    bzip2 \
     curl \
     git \
     vim
