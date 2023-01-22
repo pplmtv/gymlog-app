@@ -12,6 +12,8 @@ RUN apt-get install -y --no-install-recommends \
     gcc \
     git \
     vim
+RUN apt install -y default-mysql-client
+RUN pip install pymysql cryptography
 
 # output control
 ENV PTHONNUNBUFFERED 1
