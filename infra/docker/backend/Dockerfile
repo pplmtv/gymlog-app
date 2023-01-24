@@ -11,6 +11,7 @@ RUN apt-get install -y --no-install-recommends \
     curl \
     gcc \
     git \
+    telnet \
     vim
 RUN apt install -y default-mysql-client
 RUN pip install pymysql cryptography
