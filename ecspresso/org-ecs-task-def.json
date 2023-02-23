@@ -10,7 +10,7 @@
       ],
       "environment": [],
       "essential": true,
-      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-frontend:c2741000273c395357f1b1d49bf4326a62de5ebd",
+      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-frontend:b6102fb3d2955e1215f7430461bf2b4cdd4661b9",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -36,7 +36,7 @@
       "environment": [],
       "environmentFiles": [],
       "essential": true,
-      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-backend:c2741000273c395357f1b1d49bf4326a62de5ebd",
+      "image": "704327970435.dkr.ecr.ap-northeast-1.amazonaws.com/gymlog-sys-prod-gymlog-app-backend:b6102fb3d2955e1215f7430461bf2b4cdd4661b9",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
